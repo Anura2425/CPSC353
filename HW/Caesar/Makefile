@@ -1,7 +1,7 @@
 all: compile run clean
 
 compile:
-	@g++ main.cpp caeser.cpp -o caesar
+	@g++ -std=c++17 main.cpp caeser.cpp -o caesar
 
 run:
 	@./caesar

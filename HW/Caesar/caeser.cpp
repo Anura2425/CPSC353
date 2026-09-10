@@ -12,12 +12,12 @@ int get_index(char c) {
 
 int score(char c){
     // basic freq analysis scoring function
-    // theres prob better ways to do this (like taking into account structural aspects) but this does the trick for the most part
+    // theres def better ways to do this (like taking into account structural aspects) but this does the trick
     {
         c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
 
         switch (c) {
-            case '_': return 13;
+            case ' ': return 13;
             case 'e': return 12;
             case 't': return 11;
             case 'a': return 10;
@@ -50,6 +50,7 @@ int score(char c){
 }
 
 int gen_key(){
+    //TODO: should i exclude 0 as a possible key? as it doesnt change the message at all
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     return std::rand() % 27;
 }
@@ -69,8 +70,14 @@ std::string enc(std::string plain_text, int key){
 }
 
 std::string enc_file(std::string file_name, int key){
-    //TODO: implement
-    return "";
+    std::string text;
+    std::string plain_text;
+    std::ifstream read_file("enc_test.txt");
+    while (getline(read_file, text)) {
+        plain_text.append(text);
+    }
+    std::string cipher_text = dec(plain_text, key);
+    return cipher_text;
 }
 
 std::string dec(std::string cipher_text, int key){
@@ -92,8 +99,14 @@ std::string dec(std::string cipher_text, int key){
 }
 
 std::string dec_file(std::string file_name, int key){
-    //TODO: implement
-    return "";
+    std::string text;
+    std::string cipher_text;
+    std::ifstream read_file("dec_test.txt");
+    while (getline(read_file, text)) {
+        cipher_text.append(text);
+    }
+    std::string plain_text = dec(cipher_text, key);
+    return plain_text;
 }
 
 std::string auto_dec(std::string cipher_text){
@@ -124,9 +137,20 @@ std::string auto_dec(std::string cipher_text){
         }
         temp_plain_text.clear();
     }
-    std::cout << "The best key found was: " << best_key << std::endl;
+    std::cout << "The best key found was: " << best_key << " (" << ALPHABET.at(best_key) << ")" << std::endl;
     std::cout << "With the score: " << best_score << std::endl;
     return plain_text;
 
+}
+
+std::string auto_dec_file(std::string cipher_text){
+    std::string text;
+    std::string cipher_text;
+    std::ifstream read_file("dec_test.txt");
+    while (getline(read_file, text)) {
+        cipher_text.append(text);
+    }
+    std::string plain_text = auto_dec(cipher_text);
+    return plain_text;
 }
 
