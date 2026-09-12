@@ -72,11 +72,11 @@ std::string enc(std::string plain_text, int key){
 std::string enc_file(std::string file_name, int key){
     std::string text;
     std::string plain_text;
-    std::ifstream read_file("enc_test.txt");
+    std::ifstream read_file(file_name); 
     while (getline(read_file, text)) {
         plain_text.append(text);
     }
-    std::string cipher_text = dec(plain_text, key);
+    std::string cipher_text = enc(plain_text, key); 
     return cipher_text;
 }
 
@@ -101,7 +101,7 @@ std::string dec(std::string cipher_text, int key){
 std::string dec_file(std::string file_name, int key){
     std::string text;
     std::string cipher_text;
-    std::ifstream read_file("dec_test.txt");
+    std::ifstream read_file(file_name);
     while (getline(read_file, text)) {
         cipher_text.append(text);
     }
@@ -143,10 +143,10 @@ std::string auto_dec(std::string cipher_text){
 
 }
 
-std::string auto_dec_file(std::string cipher_text){
+std::string auto_dec_file(std::string file_name){
     std::string text;
     std::string cipher_text;
-    std::ifstream read_file("dec_test.txt");
+    std::ifstream read_file(file_name);
     while (getline(read_file, text)) {
         cipher_text.append(text);
     }
