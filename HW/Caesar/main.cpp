@@ -4,7 +4,7 @@ int main(void){
     int key = gen_key();
 
     // standard iostream enc and dec
-    std::string cipher_text = enc("the pantsless man fears not the pickpocket", key);
+    std::string cipher_text = enc("mnemonic", key);
     std::cout << "Generated key: " << key << std::endl;
     std::cout << "Ciphertext: " << cipher_text << std::endl;
     std::cout << "Decrypted: " << dec(cipher_text, key) << std::endl;
